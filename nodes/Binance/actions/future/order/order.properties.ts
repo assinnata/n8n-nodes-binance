@@ -14,8 +14,21 @@ export const properties: IBinanceFutureProperties = [
 			{ name: 'SELL', value: 'SELL' },
 			{ name: 'Clear Orders', value: 'CLEAR' },
 			{ name: 'Open Orders', value: 'GET' },
+			{ name: 'CANCEL', value: 'CANCEL' },
+			{ name: 'UPDATE', value: 'UPDATE' },
 		],
 		default: 'BUY',
+	},
+	{
+		displayName: 'Order ID',
+		name: 'orderId',
+		type: 'number',
+		required: true,
+		displayOptions: {
+			show: { resource: ['future'], operation: ['order'] },
+			hide: { side: ['BUY', 'SELL', 'CLEAR', 'GET'] },
+		},
+		default: 0,
 	},
 	{
 		displayName: 'Symbol Name or ID',
@@ -40,7 +53,7 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET'] },
+			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'UPDATE'] },
 		},
 		default: 0,
 	},
@@ -51,7 +64,7 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET'] },
+			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'UPDATE'] },
 		},
 		default: 0,
 	},
@@ -61,7 +74,7 @@ export const properties: IBinanceFutureProperties = [
 		type: 'boolean',
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET'] },
+			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'UPDATE'] },
 		},
 		default: false,
 	},

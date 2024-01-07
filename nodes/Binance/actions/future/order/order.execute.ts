@@ -12,6 +12,31 @@ export async function execute(
 	const side = this.getNodeParameter('side', index) as string;
 	const symbol = this.getNodeParameter('symbol', index) as string;
 
+	if (side === 'CANCEL') {
+		const orderId = this.getNodeParameter('orderId', index) as number;
+		const order = await binanceClient.futuresCancelOrder({ symbol, orderId });
+
+		return this.helpers.returnJsonArray(order as any);
+	}
+
+	if (side === 'UPDATE') {
+		const orderId = this.getNodeParameter('orderId', index) as number;
+		const quantity = this.getNodeParameter('quantity', index) as string;
+		const price = this.getNodeParameter('price', index) as string;
+
+		await binanceClient.futuresCancelOrder({ symbol, orderId });
+		const newOrder = await binanceClient.futuresOrder({
+			symbol,
+			quantity,
+			price,
+			side: side as OrderSide_LT,
+			type: 'LIMIT',
+			timeInForce: 'GTC',
+		});
+
+		return this.helpers.returnJsonArray(newOrder as any);
+	}
+
 	if (side === 'CLEAR') {
 		const order = await binanceClient.futuresCancelAllOpenOrders({ symbol });
 
