@@ -13,12 +13,14 @@ export async function execute(
 	const side = this.getNodeParameter('side', index) as string;
 	const symbol = this.getNodeParameter('symbol', index) as string;
 
-	if (side == 'POSITION_CLOSE'){
+	if (side === 'POSITION_CLOSE') {
 		const position = await binanceClient.futuresPositionRisk({ symbol });
-		const quantity = new BigNumber(position.filter((item) => item.symbol === symbol)[0].positionAmt);
-		if(quantity.eq(0)) {
+		const quantity = new BigNumber(
+			position.filter((item) => item.symbol === symbol)[0].positionAmt,
+		);
+		if (quantity.eq(0)) {
 			throw new Error('No position found');
-		}	
+		}
 		const order = await binanceClient.futuresOrder({
 			symbol,
 			quantity: quantity.toString(),
@@ -40,11 +42,13 @@ export async function execute(
 	if (side === 'UPDATE') {
 		const quantity = this.getNodeParameter('quantity', index) as string;
 		const price = this.getNodeParameter('price', index) as string;
-		const orders = (await binanceClient.futuresOpenOrders({ symbol })).filter(order => order.type === 'LIMIT');
-		if(orders.length === 0) {
+		const orders = (await binanceClient.futuresOpenOrders({ symbol })).filter(
+			(order) => order.type === 'LIMIT',
+		);
+		if (orders.length === 0) {
 			throw new Error('No open orders found');
 		}
-		const orderId: any = orders[0].orderId; 
+		const orderId: any = orders[0].orderId;
 		await binanceClient.futuresCancelOrder({ symbol, orderId });
 		const newOrder = await binanceClient.futuresOrder({
 			symbol,

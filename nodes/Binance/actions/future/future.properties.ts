@@ -47,20 +47,20 @@ export const properties: INodeProperties[] = [
 			{
 				name: 'Order',
 				value: 'order',
-				action: 'Place an Order',
+				action: 'Place an order',
 				description: 'Place an Order',
-			},
-			{
-				name: 'SmartOrder',
-				value: 'smartorder',
-				action: 'Place a Smart Order',
-				description: 'Place a Smart Order',
 			},
 			{
 				name: 'Position',
 				value: 'position',
 				action: 'Get position info',
 				description: 'Get position info',
+			},
+			{
+				name: 'Smart Order',
+				value: 'smartorder',
+				action: 'Place a smart order',
+				description: 'Place a Smart Order',
 			},
 			{
 				name: 'Statistics',

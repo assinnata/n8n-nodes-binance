@@ -30,8 +30,8 @@ export async function execute(
 		timeInForce: 'GTC',
 		reduceOnly: `${reduceOnly}`,
 	});
-	
-	while(order.executedQty < order.origQty) {
+
+	while (order.executedQty < order.origQty) {
 		await new Promise((resolve) => setTimeout(resolve, 500));
 		currentPrice = await binanceClient.futuresMarkPrice();
 		// get symbol price
@@ -39,12 +39,14 @@ export async function execute(
 		price = symbolPrice?.markPrice!;
 
 		// update the order price limit
-		const orderStatus = await binanceClient.futuresGetOrder({symbol, orderId: order.orderId});
-		await binanceClient.futuresCancelOrder({symbol, orderId: order.orderId});
+		const orderStatus = await binanceClient.futuresGetOrder({ symbol, orderId: order.orderId });
+		await binanceClient.futuresCancelOrder({ symbol, orderId: order.orderId });
 		if (orderStatus.status === 'FILLED') {
 			break;
 		} else {
-			const newQuantity = new BigNumber(orderStatus.origQty).minus(orderStatus.executedQty).toString();
+			const newQuantity = new BigNumber(orderStatus.origQty)
+				.minus(orderStatus.executedQty)
+				.toString();
 			await binanceClient.futuresOrder({
 				symbol,
 				quantity: newQuantity,
