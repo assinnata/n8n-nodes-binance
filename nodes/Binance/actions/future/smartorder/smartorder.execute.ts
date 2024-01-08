@@ -31,6 +31,7 @@ export async function execute(
 		reduceOnly: `${reduceOnly}`,
 	});
 
+	const results = [order];
 	while (order.executedQty < order.origQty) {
 		await new Promise((resolve) => setTimeout(resolve, 500));
 		currentPrice = await binanceClient.futuresMarkPrice();
@@ -47,7 +48,7 @@ export async function execute(
 			const newQuantity = new BigNumber(orderStatus.origQty)
 				.minus(orderStatus.executedQty)
 				.toString();
-			await binanceClient.futuresOrder({
+			const tmpOrder = await binanceClient.futuresOrder({
 				symbol,
 				quantity: newQuantity,
 				price,
@@ -56,8 +57,9 @@ export async function execute(
 				timeInForce: 'GTC',
 				reduceOnly: `${reduceOnly}`,
 			});
+			results.push(tmpOrder);
 		}
 	}
 
-	return this.helpers.returnJsonArray(order as any);
+	return this.helpers.returnJsonArray(results as any);
 }
