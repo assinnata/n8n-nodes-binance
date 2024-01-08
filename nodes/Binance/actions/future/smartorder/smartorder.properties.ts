@@ -11,11 +11,7 @@ export const properties: IBinanceFutureProperties = [
 		},
 		options: [
 			{ name: 'BUY', value: 'BUY' },
-			{ name: 'CANCEL', value: 'CANCEL' },
-			{ name: 'Clear Orders', value: 'CLEAR' },
-			{ name: 'Open Orders', value: 'GET' },
 			{ name: 'SELL', value: 'SELL' },
-			{ name: 'UPDATE', value: 'UPDATE' },
 		],
 		default: 'BUY',
 	},
@@ -42,7 +38,6 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'UPDATE'] },
 		},
 		default: 0,
 	},

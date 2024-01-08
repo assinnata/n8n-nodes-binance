@@ -3,6 +3,7 @@ import { INodeExecutionData } from 'n8n-workflow';
 import { IExecuteFunctions } from 'n8n-core';
 
 import * as order from './order';
+import * as smartorder from './smartorder';
 import * as candle from './candle';
 import * as exchange from './exchange';
 import * as leverage from './leverage';
@@ -19,6 +20,8 @@ export async function execute(
 	switch (operation) {
 		case 'order':
 			return order.execute.call(this, index);
+		case 'smartorder':
+			return smartorder.execute.call(this, index);
 		case 'candle':
 			return candle.execute.call(this, index);
 		case 'exchange':
