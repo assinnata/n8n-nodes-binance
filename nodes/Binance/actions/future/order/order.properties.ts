@@ -2,21 +2,36 @@ import { IBinanceFutureProperties } from '../../../interface';
 
 export const properties: IBinanceFutureProperties = [
 	{
-		displayName: 'Side',
-		name: 'side',
+		displayName: 'Action',
+		name: 'action',
 		type: 'options',
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
 		},
 		options: [
+			{ name: 'CANCEL', value: 'CANCEL', action: 'Cancel a future' },
+			{ name: 'Clear Orders', value: 'CLEAR', action: 'Clear orders a future' },
+			{ name: 'List Orders', value: 'GET', action: 'List orders a future' },
+			{ name: 'Place Orders', value: 'PUT', action: 'Place orders a future' },
+			{ name: 'Place Smart Orders', value: 'SMART', action: 'Place smart orders a future' },
+			{ name: 'Position Close', value: 'POSITION_CLOSE', action: 'Position close a future' },
+			{ name: 'UPDATE', value: 'UPDATE', action: 'Update a future' },
+		],
+		default: 'CANCEL',
+	},
+	{
+		displayName: 'Side',
+		name: 'side',
+		type: 'options',
+		required: true,
+		displayOptions: {
+			show: { resource: ['future'], operation: ['order'] },
+			hide: { action: ['CANCEL', 'CLEAR', 'GET', 'POSITION_CLOSE'] },
+		},
+		options: [
 			{ name: 'BUY', value: 'BUY' },
-			{ name: 'CANCEL', value: 'CANCEL' },
-			{ name: 'Clear Orders', value: 'CLEAR' },
-			{ name: 'Open Orders', value: 'GET' },
-			{ name: 'Position Close', value: 'POSITION_CLOSE' },
 			{ name: 'SELL', value: 'SELL' },
-			{ name: 'UPDATE', value: 'UPDATE' },
 		],
 		default: 'BUY',
 	},
@@ -27,7 +42,7 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['BUY', 'SELL', 'CLEAR', 'GET', 'UPDATE', 'POSITION_CLOSE'] },
+			hide: { action: ['CANCEL', 'CLEAR', 'GET', 'POSITION_CLOSE'] },
 		},
 		default: 0,
 	},

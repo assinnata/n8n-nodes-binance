@@ -1,16 +1,8 @@
 import { AllEntities, Entity, PropertiesOf } from 'n8n-workflow';
 
 type IBinanceMap = {
-	spot: 'exchange' | 'account' | 'candle' | 'order' | 'smartorder';
-	future:
-		| 'exchange'
-		| 'account'
-		| 'candle'
-		| 'order'
-		| 'smartorder'
-		| 'leverage'
-		| 'position'
-		| 'statistics';
+	spot: 'exchange' | 'account' | 'candle' | 'order';
+	future: 'exchange' | 'account' | 'candle' | 'order' | 'leverage' | 'position' | 'statistics';
 	margin: 'exchange' | 'account' | 'candle' | 'order';
 };
 

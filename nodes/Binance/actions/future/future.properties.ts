@@ -57,12 +57,6 @@ export const properties: INodeProperties[] = [
 				description: 'Get position info',
 			},
 			{
-				name: 'Smart Order',
-				value: 'smartorder',
-				action: 'Place a smart order',
-				description: 'Place a Smart Order',
-			},
-			{
 				name: 'Statistics',
 				value: 'statistics',
 				action: 'Get daily statistics',
