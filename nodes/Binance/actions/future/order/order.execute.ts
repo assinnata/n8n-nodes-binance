@@ -20,10 +20,13 @@ export async function execute(
 	}
 
 	if (side === 'UPDATE') {
-		const orderId = this.getNodeParameter('orderId', index) as number;
 		const quantity = this.getNodeParameter('quantity', index) as string;
 		const price = this.getNodeParameter('price', index) as string;
-
+		const orders = (await binanceClient.futuresOpenOrders({ symbol })).filter(order => order.type === 'LIMIT');
+		if(orders.length === 0) {
+			throw new Error('No open orders found');
+		}
+		const orderId: any = orders[0].orderId; 
 		await binanceClient.futuresCancelOrder({ symbol, orderId });
 		const newOrder = await binanceClient.futuresOrder({
 			symbol,

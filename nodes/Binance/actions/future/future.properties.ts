@@ -47,8 +47,14 @@ export const properties: INodeProperties[] = [
 			{
 				name: 'Order',
 				value: 'order',
-				action: 'Buy or sell a cryptocurrency',
-				description: 'Buy or sell a cryptocurrency',
+				action: 'Place an Order',
+				description: 'Place an Order',
+			},
+			{
+				name: 'SmartOrder',
+				value: 'smartorder',
+				action: 'Place a Smart Order',
+				description: 'Place a Smart Order',
 			},
 			{
 				name: 'Position',

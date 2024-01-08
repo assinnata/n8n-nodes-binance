@@ -1,6 +1,6 @@
 {
-	"name": "n8n-nodes-binance",
-	"version": "0.0.3",
+	"name": "n8n-nodes-binance-extended",
+	"version": "0.0.4",
 	"description": "N8N nodes for Binance Exchange",
 	"keywords": [
 		"n8n-community-node-package"
@@ -58,6 +58,7 @@
 		"typescript": "~4.9.5"
 	},
 	"dependencies": {
+		"bignumber.js": "^9.1.2",
 		"binance-api-node": "^0.12.3",
 		"technicalindicators": "^3.1.0"
 	}

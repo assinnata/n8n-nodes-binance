@@ -20,17 +20,6 @@ export const properties: IBinanceFutureProperties = [
 		default: 'BUY',
 	},
 	{
-		displayName: 'Order ID',
-		name: 'orderId',
-		type: 'number',
-		required: true,
-		displayOptions: {
-			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['BUY', 'SELL', 'CLEAR', 'GET', 'UPDATE'] },
-		},
-		default: 0,
-	},
-	{
 		displayName: 'Symbol Name or ID',
 		name: 'symbol',
 		type: 'options',
@@ -53,29 +42,8 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL'] },
+			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'UPDATE'] },
 		},
 		default: 0,
-	},
-	{
-		displayName: 'Price',
-		name: 'price',
-		type: 'number',
-		required: true,
-		displayOptions: {
-			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL'] },
-		},
-		default: 0,
-	},
-	{
-		displayName: 'Reduce Only',
-		name: 'reduceOnly',
-		type: 'boolean',
-		displayOptions: {
-			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL'] },
-		},
-		default: false,
 	},
 ];
