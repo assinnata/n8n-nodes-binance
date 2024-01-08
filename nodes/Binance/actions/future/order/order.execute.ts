@@ -1,6 +1,7 @@
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData } from 'n8n-workflow';
 import createBinance, { OrderSide_LT } from 'binance-api-node';
+import BigNumber from 'bignumber.js';
 
 export async function execute(
 	this: IExecuteFunctions,
@@ -11,6 +12,23 @@ export async function execute(
 
 	const side = this.getNodeParameter('side', index) as string;
 	const symbol = this.getNodeParameter('symbol', index) as string;
+
+	if (side == 'POSITION_CLOSE'){
+		const position = await binanceClient.futuresPositionRisk({ symbol });
+		const quantity = new BigNumber(position.filter((item) => item.symbol === symbol)[0].positionAmt);
+		if(quantity.eq(0)) {
+			throw new Error('No position found');
+		}	
+		const order = await binanceClient.futuresOrder({
+			symbol,
+			quantity: quantity.toString(),
+			side: quantity.lt(0) ? 'SELL' : 'BUY',
+			type: 'MARKET',
+			reduceOnly: 'true',
+		});
+
+		return this.helpers.returnJsonArray(order as any);
+	}
 
 	if (side === 'CANCEL') {
 		const orderId = this.getNodeParameter('orderId', index) as number;
