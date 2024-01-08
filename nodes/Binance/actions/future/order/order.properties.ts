@@ -69,7 +69,7 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
+			hide: { action: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
 		},
 		default: 0,
 	},
@@ -80,7 +80,7 @@ export const properties: IBinanceFutureProperties = [
 		required: true,
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
+			hide: { action: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
 		},
 		default: 0,
 	},
@@ -90,7 +90,7 @@ export const properties: IBinanceFutureProperties = [
 		type: 'boolean',
 		displayOptions: {
 			show: { resource: ['future'], operation: ['order'] },
-			hide: { side: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
+			hide: { action: ['CLEAR', 'GET', 'CANCEL', 'POSITION_CLOSE'] },
 		},
 		default: false,
 	},

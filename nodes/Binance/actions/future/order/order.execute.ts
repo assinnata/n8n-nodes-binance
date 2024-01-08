@@ -11,11 +11,11 @@ export async function execute(
 	const binanceClient = createBinance(credentials);
 
 	const action = this.getNodeParameter('action', index) as string;
-	const side = this.getNodeParameter('side', index) as string;
-	const symbol = this.getNodeParameter('symbol', index) as string;
 
 	if (action === 'SMART') {
 		let currentPrice = await binanceClient.futuresMarkPrice();
+		const symbol = this.getNodeParameter('symbol', index) as string;
+		const side = this.getNodeParameter('side', index) as string;
 		// get symbol price
 		let symbolPrice = currentPrice.find((item) => item.symbol === symbol);
 		let price = symbolPrice?.markPrice!;
@@ -61,7 +61,8 @@ export async function execute(
 			}
 		}
 	}
-	if (side === 'POSITION_CLOSE') {
+	if (action === 'POSITION_CLOSE') {
+		const symbol = this.getNodeParameter('symbol', index) as string;
 		const position = await binanceClient.futuresPositionRisk({ symbol });
 		const quantity = new BigNumber(
 			position.filter((item) => item.symbol === symbol)[0].positionAmt,
@@ -81,6 +82,7 @@ export async function execute(
 	}
 
 	if (action === 'CANCEL') {
+		const symbol = this.getNodeParameter('symbol', index) as string;
 		const orderId = this.getNodeParameter('orderId', index) as number;
 		const order = await binanceClient.futuresCancelOrder({ symbol, orderId });
 
@@ -88,6 +90,8 @@ export async function execute(
 	}
 
 	if (action === 'UPDATE') {
+		const symbol = this.getNodeParameter('symbol', index) as string;
+		const side = this.getNodeParameter('side', index) as string;
 		const quantity = this.getNodeParameter('quantity', index) as string;
 		const price = this.getNodeParameter('price', index) as string;
 		const orders = (await binanceClient.futuresOpenOrders({ symbol })).filter(
@@ -111,12 +115,14 @@ export async function execute(
 	}
 
 	if (action === 'CLEAR') {
+		const symbol = this.getNodeParameter('symbol', index) as string;
 		const order = await binanceClient.futuresCancelAllOpenOrders({ symbol });
 
 		return this.helpers.returnJsonArray(order as any);
 	}
 
 	if (action === 'GET') {
+		const symbol = this.getNodeParameter('symbol', index) as string;
 		const orders = await binanceClient.futuresOpenOrders({ symbol });
 
 		return this.helpers.returnJsonArray(orders as any);
@@ -125,6 +131,8 @@ export async function execute(
 	const quantity = this.getNodeParameter('quantity', index) as string;
 	const price = this.getNodeParameter('price', index) as string;
 	const reduceOnly = this.getNodeParameter('reduceOnly', index) as boolean;
+	const symbol = this.getNodeParameter('symbol', index) as string;
+	const side = this.getNodeParameter('side', index) as string;
 
 	const order = await binanceClient.futuresOrder({
 		symbol,
